@@ -21,6 +21,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
+	implementation("org.springframework.boot:spring-boot-starter-opentelemetry")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.microsoft.sqlserver:mssql-jdbc:12.10.0.jre11")
 	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa-test")
@@ -30,4 +32,7 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+tasks.withType<JavaCompile> {
+	options.compilerArgs.add("-parameters")
 }
