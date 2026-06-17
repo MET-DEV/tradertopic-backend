@@ -18,10 +18,33 @@ spring:
 logging:
   level:
     org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.orm.jdbc.bind: TRACE
+    com.tradertopic.oteldemo: DEBUG
+  pattern:
+    level: "%5p [traceId=%X{traceId} spanId=%X{spanId}]"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,prometheus
+  tracing:
+    sampling:
+      probability: 1.0
+  opentelemetry:
+    resource-attributes:
+      service.name: otel-demo
+    tracing:
+      export:
+        otlp:
+          enabled: false
+  otlp:
+    metrics:
+      export:
+        enabled: false
 
 springdoc:
   swagger-ui:
-  path: /swagger-ui.html
+    path: /swagger-ui.html
   api-docs:
     path: /v3/api-docs
