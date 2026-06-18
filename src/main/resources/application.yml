@@ -19,7 +19,9 @@ logging:
   level:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
-    com.tradertopic.oteldemo: DEBUG
+    com.tradertopic.metsoft: DEBUG
+    io.opentelemetry: DEBUG
+    org.springframework.boot.actuate.autoconfigure.tracing: DEBUG
   pattern:
     level: "%5p [traceId=%X{traceId} spanId=%X{spanId}]"
 
@@ -28,20 +30,24 @@ management:
     web:
       exposure:
         include: health,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+      otlp:
+        enabled: true
+        url: http://localhost:4318/v1/metrics
   tracing:
     sampling:
       probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
   opentelemetry:
     resource-attributes:
       service.name: otel-demo
-    tracing:
-      export:
-        otlp:
-          enabled: false
-  otlp:
-    metrics:
-      export:
-        enabled: false
+      service.version: 0.0.1-SNAPSHOT
+      deployment.environment: development
 
 springdoc:
   swagger-ui:
