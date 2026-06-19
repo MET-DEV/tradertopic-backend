@@ -20,8 +20,8 @@ logging:
     org.hibernate.SQL: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
     com.tradertopic.metsoft: DEBUG
-    io.opentelemetry: DEBUG
-    org.springframework.boot.actuate.autoconfigure.tracing: DEBUG
+    io.opentelemetry: INFO
+    org.springframework.boot.actuate.autoconfigure.tracing: INFO
   pattern:
     level: "%5p [traceId=%X{traceId} spanId=%X{spanId}]"
 
