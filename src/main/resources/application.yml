@@ -14,6 +14,23 @@ spring:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.SQLServerDialect
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      acks: all
+      properties:
+        enable.idempotence: true
+    consumer:
+      group-id: tradertopic-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.tradertopic.*"
+    listener:
+      ack-mode: record
 
 logging:
   level:
@@ -22,6 +39,7 @@ logging:
     com.tradertopic.metsoft: DEBUG
     io.opentelemetry: INFO
     org.springframework.boot.actuate.autoconfigure.tracing: INFO
+    org.apache.kafka: WARN
   pattern:
     level: "%5p [traceId=%X{traceId} spanId=%X{spanId}]"
 
