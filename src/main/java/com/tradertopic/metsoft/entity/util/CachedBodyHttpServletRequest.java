@@ -1,4 +1,4 @@
-package com.tradertopic.metsoft.config;
+package com.tradertopic.metsoft.entity.util;
 
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;

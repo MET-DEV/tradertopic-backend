@@ -1,4 +1,4 @@
-package com.tradertopic.metsoft.config;
+package com.tradertopic.metsoft.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -10,7 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.util.ContentCachingRequestWrapper;
+
+import com.tradertopic.metsoft.entity.util.CachedBodyHttpServletRequest;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -69,7 +70,7 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
         String params = getParams(request);
         String body = maskSensitiveData(new String(request.getCachedBody(), StandardCharsets.UTF_8));
 
-        log.info("Gelen Istek -> Method: {}, URI: {}, QueryString: {}, Params: [{}], Body: {}",
+        log.info("Method: {}, URI: {}, QueryString: {}, Params: [{}], Body: {}",
                 method, uri, queryString, params, body);
     }
     
