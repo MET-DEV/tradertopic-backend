@@ -28,7 +28,6 @@ public class RequestLoggingFilter extends OncePerRequestFilter {
 
     private static final Logger log = LoggerFactory.getLogger(RequestLoggingFilter.class);
     
-    private static final int CONTENT_CACHE_LIMIT = 10 * 1024;
     
     private static final List<String> EXCLUDED_PATHS = List.of(
             "/actuator/**",
