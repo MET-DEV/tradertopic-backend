@@ -1,4 +1,13 @@
 services:
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redis-data:/data
+
   kafka:
     image: confluentinc/cp-kafka:7.7.1
     container_name: kafka
@@ -81,3 +90,4 @@ volumes:
   tempo-data:
   grafana-data:
   kafka-data:
+  redis-data:
